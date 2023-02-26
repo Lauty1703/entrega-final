@@ -1,0 +1,490 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio - AVP e-commerce</title>
+    <link
+      rel="stylesheet"
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/node_modules/boxicons/css/boxicons.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  </head>
+  <body>
+    <!-- -------------------- Comienzo barra de navegación --------------------- -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i
+            id="logo"
+            class="bx bxs-shopping-bag bx-rotate-90 bx-tada bx-md"
+          ></i>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar-list-4"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar-list-4">
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">
+                <i id="logo-title">AVP e-commerce</i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="cart.html">
+                Carrito
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="chat">Chat global</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="serverInfo">Info del server</a>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbar-list-4"
+        >
+          <ul class="navbar-nav align-items-center">
+            <!-- Acá se introducirá la información de usuario o los botones de login y signup -->
+            <li id="user" class="nav-item dropdown"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- ----------------------- Fin barra de navegación ----------------------- -->
+
+    <main>
+      <div class="container py-5 min-vh-70">
+        <button
+          type="button"
+          class="btn btn-dark float-right"
+          data-bs-toggle="modal"
+          data-bs-target="#modal-add-product"
+        >
+          Agregar Producto
+        </button>
+        <h1>Listado de productos</h1>
+
+        <!-- ------------------------ Filtrado de productos ------------------------ -->
+        <form id="form-search" class="mt-4">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="options-search"
+                >Filtrar productos por:
+              </label>
+            </div>
+            <select
+              class="custom-select"
+              name="options-search"
+              id="options-search"
+            >
+              <option selected>Elegir una opción..</option>
+              <option value="1">Nombre</option>
+              <option value="2">Categoría</option>
+              <option value="3">Código</option>
+              <option value="4">Precio</option>
+              <option value="5">Stock</option>
+            </select>
+          </div>
+          <div class="row g-3">
+            <div class="col-6 hidden-div" id="search-by-name">
+              <input
+                class="form-control form-control-sm"
+                id="input-search-name"
+                type="text"
+                name="input-search-name"
+                placeholder="Ingrese un nombre de producto..."
+              />
+            </div>
+            <div class="col-6 hidden-div" id="search-by-category">
+              <input
+                class="form-control form-control-sm"
+                id="input-search-category"
+                type="text"
+                name="input-search-category"
+                placeholder="Ingrese una categoría de producto..."
+              />
+            </div>
+            <div class="col-6 hidden-div" id="search-by-code">
+              <input
+                class="form-control form-control-sm"
+                id="input-search-code"
+                type="text"
+                name="input-search-code"
+                placeholder="Ingrese un código de producto..."
+              />
+            </div>
+            <div class="col-6 hidden-div" id="search-by-price">
+              <input
+                class="form-control form-control-sm"
+                id="input-search-min-price"
+                type="number"
+                step="0.01"
+                name="input-search-min-price"
+                placeholder="Precio Min"
+              />
+              <input
+                class="form-control form-control-sm"
+                id="input-search-max-price"
+                type="number"
+                step="0.01"
+                name="input-search-max-price"
+                placeholder="Precio Max"
+              />
+            </div>
+            <div class="col-6 hidden-div" id="search-by-stock">
+              <input
+                class="form-control form-control-sm"
+                id="input-search-min-stock"
+                type="number"
+                name="input-search-min-stock"
+                placeholder="Stock Min"
+              />
+              <input
+                class="form-control form-control-sm"
+                id="input-search-max-stock"
+                type="number"
+                name="input-search-max-stock"
+                placeholder="Stock Max"
+              />
+            </div>
+            <div class="col-6 hidden-div" id="form-search-btns">
+              <button type="submit" class="btn btn-sm btn-dark">Buscar</button>
+              <button
+                type="reset"
+                class="btn btn-sm btn-warning"
+                onclick="clearFilters()"
+              >
+                Limpiar filtros
+              </button>
+            </div>
+          </div>
+        </form>
+        <!-- ---------------------- Fin filtrado de productos ---------------------- -->
+
+        <!-- ------------------------ Agregado de productos ------------------------ -->
+        <div
+          class="modal fade"
+          id="modal-add-product"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="modal-add-product-label"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modal-add-product-label">
+                  Agregar nuevo producto
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="form-add-product" class="needs-validation" novalidate>
+                  <div class="row g-3 mb-4">
+                    <div class="col-2">
+                      <label class="form-label" for="code">Código</label>
+                      <input
+                        class="form-control form-control-sm"
+                        id="code"
+                        type="text"
+                        name="code"
+                        required
+                      />
+                    </div>
+                    <div class="col-4">
+                      <label class="form-label" for="name"
+                        >Nombre de Producto</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="name"
+                        type="text"
+                        name="name"
+                        required
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label" for="description"
+                        >Descripción de Producto</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="description"
+                        type="text"
+                        name="description"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row g-3 mb-4">
+                    <div class="col-6">
+                      <label class="form-label" for="price">Precio</label>
+                      <input
+                        class="form-control form-control-sm"
+                        id="price"
+                        type="number"
+                        step="0.01"
+                        name="price"
+                        required
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label" for="stock">Stock</label>
+                      <input
+                        class="form-control form-control-sm"
+                        id="stock"
+                        type="number"
+                        step="0.01"
+                        name="stock"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row g-3 mb-4">
+                    <div class="col-4">
+                      <label class="form-label" for="category"
+                        >Categoría de Producto</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="category"
+                        type="text"
+                        name="category"
+                        required
+                      />
+                    </div>
+                    <div class="col-8">
+                      <label class="form-label" for="thumbnail"
+                        >Imagen (url)</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="thumbnail"
+                        type="text"
+                        name="thumbnail"
+                      />
+                    </div>
+                  </div>
+                  <hr />
+                  <button type="submit" class="btn btn-warning">Guardar</button>
+                  <button
+                    id="btn-cancel-add"
+                    type="button"
+                    class="btn btn-dark"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ---------------------- Fin agregado de productos ---------------------- -->
+
+        <!-- ------------------------ Edición de productos ------------------------- -->
+        <div
+          class="modal fade"
+          id="modal-edit-product"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="modal-edit-product-label"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modal-edit-product-label">
+                  Editar producto
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form id="form-edit-product" class="needs-validation" novalidate>
+                  <div class="row g-3 mb-4">
+                    <div class="col-2">
+                      <label class="form-label" for="edit-code">Código</label>
+                      <input
+                        class="form-control form-control-sm"
+                        id="edit-code"
+                        type="text"
+                        name="code"
+                        required
+                      />
+                    </div>
+                    <div class="col-4">
+                      <label class="form-label" for="edit-name"
+                        >Nombre de Producto</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="edit-name"
+                        type="text"
+                        name="name"
+                        required
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label" for="edit-description"
+                        >Descripción de Producto</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="edit-description"
+                        type="text"
+                        name="description"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row g-3 mb-4">
+                    <div class="col-6">
+                      <label class="form-label" for="edit-price">Precio</label>
+                      <input
+                        class="form-control form-control-sm"
+                        id="edit-price"
+                        type="number"
+                        step="0.01"
+                        name="price"
+                        required
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label" for="edit-stock">Stock</label>
+                      <input
+                        class="form-control form-control-sm"
+                        id="edit-stock"
+                        type="number"
+                        step="0.01"
+                        name="stock"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row g-3 mb-4">
+                    <div class="col-4">
+                      <label class="form-label" for="edit-category"
+                        >Categoría de Producto</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="edit-category"
+                        type="text"
+                        name="category"
+                        required
+                      />
+                    </div>
+                    <div class="col-8">
+                      <label class="form-label" for="edit-thumbnail"
+                        >Imagen (url)</label
+                      >
+                      <input
+                        class="form-control form-control-sm"
+                        id="edit-thumbnail"
+                        type="text"
+                        name="thumbnail"
+                      />
+                    </div>
+                  </div>
+                  <hr />
+                  <button type="submit" class="btn btn-warning">Guardar</button>
+                  <button
+                    id="btn-cancel-edit"
+                    type="button"
+                    class="btn btn-dark"
+                    data-bs-dismiss="modal"
+                  >
+                    Cancelar
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ---------------------- Fin edición de productos ----------------------- -->
+
+        <!-- ------------------------ Listado de productos ------------------------- -->
+        <div
+          id="product-list"
+          class="row row-cols-1 row-cols-md-3 g-4 mb-4"
+        ></div>
+        <!-- ---------------------- Fin listado de productos ----------------------- -->
+      </div>
+    </main>
+
+    <!-- ------------------------- Comienzo footer ------------------------- -->
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container text-center">
+        <span class="text-muted"
+          >&copy;2022 Desarrollado por Alexis Velázquez</span
+        >
+      </div>
+    </footer>
+    <!-- ----------------------------- Fin footer ------------------------------ -->
+
+    <!-- -------------------------- Inicio de scripts -------------------------- -->
+    <!-- JS Popper -->
+    <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+
+    <!-- JS Bootstrap -->
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- JS Obtener información de usuario -->
+    <script src="./js/auth/getUser.js"></script>
+
+    <!-- JS Logout -->
+    <script src="./js/auth/logout.js"></script>
+
+    <!-- JS para validar formulario -->
+    <script src="./js/auth/formValidator.js"></script>
+
+    <!-- JS Vista de productos -->
+    <script src="./js/products/viewProducts.js"></script>
+
+    <!-- JS Agregado de productos -->
+    <script src="./js/products/addProduct.js"></script>
+
+    <!-- JS Edición de productos -->
+    <script src="./js/products/editProduct.js"></script>
+
+    <!-- JS Eliminado de productos -->
+    <script src="./js/products/deleteProduct.js"></script>
+
+    <!-- JS Agregado de productos al carrito -->
+    <script src="./js/products/addProductToCart.js"></script>
+
+    <!-- JS Filtrado de productos -->
+    <script src="./js/products/filterProducts.js"></script>
+  </body>
+</html>

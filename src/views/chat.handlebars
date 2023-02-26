@@ -1,0 +1,147 @@
+<head>
+  <script src='/node_modules/normalizr/dist/normalizr.browser.min.js'></script>
+  <title>Chat - AVP e-commerce</title>
+</head>
+
+<body>
+  {{! Comienzo barra de navegación }}
+  <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
+    <div class='container'>
+      <a class='navbar-brand' href='/'>
+        <i id='logo' class='bx bxs-shopping-bag bx-rotate-90 bx-tada bx-md'></i>
+      </a>
+      <button
+        class='navbar-toggler'
+        type='button'
+        data-bs-toggle='collapse'
+        data-bs-target='#navbar-list-4'
+        aria-controls='navbarNav'
+        aria-expanded='false'
+        aria-label='Toggle navigation'
+      >
+        <span class='navbar-toggler-icon'></span>
+      </button>
+
+      <div class='collapse navbar-collapse' id='navbar-list-4'>
+        <ul class='navbar-nav align-items-center'>
+          <li class='nav-item'>
+            <a class='nav-link active' aria-current='page' href='/'>
+              <i id='logo-title'>AVP e-commerce</i>
+            </a>
+          </li>
+          <li class='nav-item'>
+            <a class='nav-link' aria-current='page' href='cart.html'>
+              Carrito
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class='collapse navbar-collapse justify-content-end'
+        id='navbar-list-4'
+      >
+        <ul class='navbar-nav align-items-center'>
+          {{! Acá se introducirá la información de usuario o los botones de login y signup }}
+          <li id='user' class='nav-item dropdown'></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {{! Fin barra de navegación }}
+
+  {{! En esta sección se encuentra el formulario de ingreso de mensajes y la vista de estos }}
+  <section id='message-center'>
+    <div class='container py-5 min-vh-70'>
+      <h1>Chat</h1>
+      <hr />
+      <form id='add-message-form' class='row g-3'>
+        {{! Campo de email }}
+        <div class='form-group col-md-6'>
+          <label for='input-email' class='form-label'>Email</label>
+          <div class='input-group'>
+            <span class='input-group-text' id='inputGroupFusion'>@</span>
+            <input
+              id='input-email'
+              class='form-control'
+              type='email'
+              name='email'
+              aria-describedby='inputGroupFusion'
+              placeholder='john-doe@example.com'
+              required
+            />
+          </div>
+        </div>
+
+        {{! Campo de selección de tipo de mensaje }}
+        <div class='form-group col-md-6'>
+          <label for='message-type' class='form-label'>Tipo de mensaje</label>
+          <select
+            id='message-type'
+            class='form-control'
+            name='message-type'
+            required
+          >
+            <option value=''>Elije una opción</option>
+            <option value='Usuario'>Usuario</option>
+            <option value='Sistema'>Sistema</option>
+          </select>
+        </div>
+
+        {{! Acá se inserta la lista de mensajes en caso de que existan }}
+        <div id='message-list'></div>
+
+        {{! Campo de cuerpo del mensaje }}
+        <div class='form-group'>
+          <label for='input-message' class='form-label'>Mensaje</label>
+          <textarea
+            disabled
+            id='input-message'
+            class='form-control'
+            type='text'
+            cols='30'
+            rows='5'
+            placeholder='Mensaje a enviar'
+            required
+          ></textarea>
+        </div>
+
+        {{! Botón para envío del mensaje }}
+        <div class='col-md-12'>
+          <button disabled id='btn-send' type='submit' class='btn btn-warning'>
+            Enviar mensaje
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  {{! Comienzo footer }}
+  <footer class='footer mt-auto py-3 bg-light'>
+    <div class='container text-center'>
+      <span class='text-muted'>&copy;2022 Desarrollado por Alexis Velázquez</span>
+    </div>
+  </footer>
+  {{! Fin footer }}
+
+  {{! JS Popper }}
+  <script src='/node_modules/@popperjs/core/dist/umd/popper.min.js'></script>
+
+  {{! JS Bootstrap }}
+  <script src='/node_modules/bootstrap/dist/js/bootstrap.min.js'></script>
+
+  {{! JS Handlebars }}
+  <script src='/node_modules/handlebars/dist/handlebars.min.js'></script>
+
+  {{! JS to use socketIO inside of index.js  }}
+  <script src='/socket.io/socket.io.js'></script>
+
+  {{! JS chat client socket  }}
+  <script src='/js/chat/globalChat.js'></script>
+
+  {{! JS Obtener información de usuario  }}
+  <script src='/js/auth/getUser.js'></script>
+
+  {{! JS Logout  }}
+  <script src='/js/auth/logout.js'></script>
+</body>

@@ -1,0 +1,127 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ordenes de compras - AVP e-commerce</title>
+    <link
+      rel="stylesheet"
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/node_modules/boxicons/css/boxicons.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/node_modules/sweetalert2/dist/sweetalert2.min.css">
+    <script src="/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
+  </head>
+  <body>
+    <!-- -------------------- Comienzo barra de navegación --------------------- -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i
+            id="logo"
+            class="bx bxs-shopping-bag bx-rotate-90 bx-tada bx-md"
+          ></i>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar-list-4"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar-list-4">
+          <ul class="navbar-nav align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">
+                <i id="logo-title">AVP e-commerce</i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="cart.html">
+                Carrito
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="chat">Chat global</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="serverInfo">Info del server</a>
+            </li>
+          </ul>
+        </div>
+
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbar-list-4"
+        >
+          <ul class="navbar-nav align-items-center">
+            <!-- Acá se introducirá la información de usuario o los botones de login y signup -->
+            <li id="user" class="nav-item dropdown"></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- ----------------------- Fin barra de navegación ----------------------- -->
+
+    <!-- ------------------------- Listado de ordenes -------------------------- -->
+    <main>
+      <div class="container py-5 min-vh-70">
+        <h1>Ordenes de compras</h1>
+        <div class="table-responsive-lg">
+          <table class="table align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>Detalle</th>
+                <th>Email</th>
+                <th>Dirección</th>
+                <th>Estado</th>
+                <th>Fecha y Hora</th>
+                <th colspan="2">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="order-list"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+    <!-- ----------------------- Fin listado de ordenes ------------------------ -->
+
+    <!-- ------------------------- Comienzo footer ------------------------- -->
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container text-center">
+        <span class="text-muted"
+          >&copy;2022 Desarrollado por Alexis Velázquez</span
+        >
+      </div>
+    </footer>
+    <!-- ----------------------------- Fin footer ------------------------------ -->
+
+    <!-- -------------------------- Inicio de scripts -------------------------- -->
+    <!-- JS Popper -->
+    <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+
+    <!-- JS Bootstrap -->
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- JS Obtener información de usuario -->
+    <script src="./js/auth/getUser.js"></script>
+
+    <!-- JS Logout -->
+    <script src="./js/auth/logout.js"></script>
+
+    <!-- JS Vista de ordenes -->
+    <script src="./js/orders/viewOrders.js"></script>
+
+    <!-- JS Confirmación de orden -->
+    <script src="./js/orders/confirmOrder.js"></script>
+
+    <!-- JS Eliminado de orden -->
+    <script src="./js/orders/deleteOrder.js"></script>
+  </body>
+</html>
